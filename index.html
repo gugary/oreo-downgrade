@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Nexus 6P: Downgrade Android 8.0.0 Oreo to 7.1.2</title>
+<!-- 2017-11-15 Wed 12:54 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Gary Gu" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Nexus 6P: Downgrade Android 8.0.0 Oreo to 7.1.2</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Introduction</a></li>
+<li><a href="#sec-2">2. Get Android Platform Tools for MacOS</a></li>
+<li><a href="#sec-3">3. Unzip the zip file to my lab/nexus6p</a></li>
+<li><a href="#sec-4">4. Check java runtime exist (else install from Oracle)</a></li>
+<li><a href="#sec-5">5. Get Android 7.1.2 device image</a></li>
+<li><a href="#sec-6">6. Unzip the device image files</a></li>
+<li><a href="#sec-7">7. Move image files to platform-tools</a></li>
+<li><a href="#sec-8">8. OEM unlocking and USB debugging</a></li>
+<li><a href="#sec-9">9. Run adb devices</a></li>
+<li><a href="#sec-10">10. Run fastboot devices</a></li>
+<li><a href="#sec-11">11. Run fastboot flashing unlock</a></li>
+<li><a href="#sec-12">12. Run the commands in flash-all.sh manually</a></li>
+<li><a href="#sec-13">13. Now we're on 7.1.2, lock the device again</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+After my Nexus 6P was upgraded to 8.0.0 Oreo, I've had a few issues including (1) the misleading "mobile data has run out", (2) unable to transfer file to my Mac using USB and (3) video recording dropping images after a few seconds, so I've decided to attempt a downgrade, which is something I've never done before. 
+This note logs the steps I've taken to put back Android 7.1.2, which is the last 7 release before Oreo.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Get Android Platform Tools for MacOS</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+So that I can control the phone from my MacBook Pro
+</p>
+
+<p>
+I used this link  <a href="https://developer.android.com/studio/releases/platform-tools.html">https://developer.android.com/studio/releases/platform-tools.html</a>
+which states that 
+</p>
+
+<p>
+Android SDK Platform-Tools is a component for the Android SDK. 
+It includes tools that interface with the Android platform, such as adb , fastboot , and systrace . 
+These tools are required for Android app development. 
+They're also needed if you want to unlock your device bootloader and flash it with a new system image.
+</p>
+
+<pre class="example">
+/Users/gug/Downloads:
+ total used in directory 2673688 available 4293172908
+ drwx------+  5 gug  staff         170 Nov 15 08:18 .
+ drwxr-xr-x+ 97 gug  staff        3298 Nov 14 13:58 ..
+ -rw-r--r--@  1 gug  staff     7910754 Nov 14 13:46 platform-tools-latest-darwin.zip
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Unzip the zip file to my lab/nexus6p</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+The two program I'll be using are adb and fastboot.
+</p>
+<pre class="example">
+bash-3.2$ cd ~/lab/nexus6p
+bash-3.2$ unzip ~/Downloads/platform-tools-latest-darwin.zip 
+Archive:  /Users/gug/Downloads/platform-tools-latest-darwin.zip
+  inflating: platform-tools/NOTICE.txt  
+  inflating: platform-tools/adb      
+   creating: platform-tools/api/
+  inflating: platform-tools/api/annotations.zip  
+  inflating: platform-tools/api/api-versions.xml  
+  inflating: platform-tools/dmtracedump  
+  inflating: platform-tools/etc1tool  
+  inflating: platform-tools/hprof-conv  
+   creating: platform-tools/lib/
+...
+  inflating: platform-tools/systrace/systrace.py  
+  inflating: platform-tools/fastboot  
+bash-3.2$ cd platform-tools/
+bash-3.2$ pwd
+/Users/gug/lab/nexus6p/platform-tools
+bash-3.2$ ls
+NOTICE.txt		api			etc1tool		hprof-conv		source.properties	systrace
+adb			dmtracedump		fastboot		lib			sqlite3
+
+/Users/gug/lab/nexus6p/platform-tools:
+  -rwxrwxr-x@  1 gug  staff     2326156 May 12  2017 adb
+  -rwxrwxr-x@  1 gug  staff       60504 May 12  2017 dmtracedump
+  -rwxrwxr-x@  1 gug  staff      238028 May 12  2017 etc1tool
+  -rwxr-xr-x@  1 gug  staff     2172900 Oct 26 18:46 fastboot
+  -rwxrwxr-x@  1 gug  staff       17536 May 12  2017 hprof-conv
+  drwxrwx---@  3 gug  staff         102 May 12  2017 lib
+  -rw-r-----@  1 gug  staff          63 Oct 26 18:34 source.properties
+  -rwxrwxr-x@  1 gug  staff     1233284 May 12  2017 sqlite3
+  drwxrwx---@  6 gug  staff         204 May 12  2017 systrace
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Check java runtime exist (else install from Oracle)</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Since hadoop is written in java, I need to have a run-time java installation. And I do.
+</p>
+<pre class="example">
+bash-3.2$ which java
+/usr/bin/java
+
+bash-3.2$ java -version
+java version "1.8.0_144"
+Java(TM) SE Runtime Environment (build 1.8.0_144-b01)
+Java HotSpot(TM) 64-Bit Server VM (build 25.144-b01, mixed mode)
+
+bash-3.2$ /usr/libexec/java_home
+/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home
+bash-3.2$
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Get Android 7.1.2 device image</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+This is the link to the zip file: 
+<a href="https://dl.google.com/dl/android/aosp/angler-n2g48c-factory-6a21e528.zip">https://dl.google.com/dl/android/aosp/angler-n2g48c-factory-6a21e528.zip</a>
+</p>
+
+<pre class="example">
+/Users/gug/Downloads:
+ total used in directory 2673688 available 4293172908
+ drwx------+  5 gug  staff         170 Nov 15 08:18 .
+ drwxr-xr-x+ 97 gug  staff        3298 Nov 14 13:58 ..
+ -rw-r--r--@  1 gug  staff  1361010412 Nov 11 17:55 angler-n2g48c-factory-6a21e528.zip
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Unzip the device image files</h2>
+<div class="outline-text-2" id="text-6">
+<pre class="example">
+/Users/gug/lab/nexus6p/angler-n2g48c:
+ total used in directory 2704248 available 4293174782
+ drwxr-x---@ 8 gug  staff         272 Jul 17 13:36 .
+ drwxr-xr-x  5 gug  staff         170 Nov 14 13:31 ..
+ -rw-r-----@ 1 gug  staff     3629056 Jul 17 13:36 bootloader-angler-angler-03.68.img
+ -rw-r-----@ 1 gug  staff         962 Jul 17 13:36 flash-all.bat
+ -rwxr-x--x@ 1 gug  staff         833 Jul 17 13:36 flash-all.sh
+ -rwxr-x--x@ 1 gug  staff         790 Jul 17 13:36 flash-base.sh
+ -rw-r-----@ 1 gug  staff  1331032546 Jul 17 13:36 image-angler-n2g48c.zip
+ -rw-r-----@ 1 gug  staff    49897472 Jul 17 13:36 radio-angler-angler-03.81.img
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Move image files to platform-tools</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+This way the adb and fastboot program can locate the two .img files as well as the image-angler*.zip file.
+</p>
+<pre class="example">
+bash-3.2$ cd ../angler-n2g48c/
+bash-3.2$ ll
+total 2704248
+-rw-r-----@ 1 gug  staff     3629056 Jul 17 13:36 bootloader-angler-angler-03.68.img
+-rw-r-----@ 1 gug  staff         962 Jul 17 13:36 flash-all.bat
+-rwxr-x--x@ 1 gug  staff         833 Jul 17 13:36 flash-all.sh
+-rwxr-x--x@ 1 gug  staff         790 Jul 17 13:36 flash-base.sh
+-rw-r-----@ 1 gug  staff  1331032546 Jul 17 13:36 image-angler-n2g48c.zip
+-rw-r-----@ 1 gug  staff    49897472 Jul 17 13:36 radio-angler-angler-03.81.img
+bash-3.2$ mv * ../platform-tools/
+
+ /Users/gug/lab/nexus6p/platform-tools:
+  total used in directory 2716608 available 4293172911
+  drwxr-xr-x@ 19 gug  staff         646 Nov 15 08:20 .
+  drwxr-xr-x   8 gug  staff         272 Nov 15 08:17 ..
+  -rw-r-----@  1 gug  staff      261776 Jun  2 02:40 NOTICE.txt
+  -rwxrwxr-x@  1 gug  staff     2326156 May 12  2017 adb
+  drwxr-x---@  4 gug  staff         136 Jun  2 10:30 api
+  -rw-r-----@  1 gug  staff     3629056 Jul 17 13:36 bootloader-angler-angler-03.68.img
+  -rwxrwxr-x@  1 gug  staff       60504 May 12  2017 dmtracedump
+  -rwxrwxr-x@  1 gug  staff      238028 May 12  2017 etc1tool
+  -rwxr-xr-x@  1 gug  staff     2172900 Oct 26 18:46 fastboot
+  -rwxr-x--x@  1 gug  staff         833 Jul 17 13:36 flash-all.sh
+  -rwxr-x--x@  1 gug  staff         790 Jul 17 13:36 flash-base.sh
+  -rwxrwxr-x@  1 gug  staff       17536 May 12  2017 hprof-conv
+  -rw-r-----@  1 gug  staff  1331032546 Jul 17 13:36 image-angler-n2g48c.zip
+  drwxrwx---@  3 gug  staff         102 May 12  2017 lib
+  -rw-r-----@  1 gug  staff    49897472 Jul 17 13:36 radio-angler-angler-03.81.img
+  -rw-r-----@  1 gug  staff          63 Oct 26 18:34 source.properties
+  -rwxrwxr-x@  1 gug  staff     1233284 May 12  2017 sqlite3
+  drwxrwx---@  6 gug  staff         204 May 12  2017 systrace
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> OEM unlocking and USB debugging</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+In developer options, flip the OEM unlocking switch On to allow the bootloader to be unlocked. 
+Also switch on USB debugging so that adb and fastboot commands can control the phone.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Run adb devices</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+To make sure I can control my Nexus 6P from my MacBook Pro
+</p>
+
+<pre class="example">
+bash-3.2$ cd lab/nexus6p/platform-tools/
+bash-3.2$ ./adb devices
+List of devices attached
+84B5T15A13002362	device
+
+bash-3.2$
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Run fastboot devices</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+To make sure fastboot can commmunicate with the phone
+</p>
+<pre class="example">
+bash-3.2$ fastboot devices
+# no result; must run below first
+bash-3.2$ adb reboot-bootloader
+bash-3.2$ fastboot devices
+84B5T15A13002362	fastboot
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> Run fastboot flashing unlock</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+This step wipes out everything on the phone
+</p>
+<pre class="example">
+bash-3.2$ fastboot flashing unlock
+...
+(bootloader) Please select 'YES' on screen if you want to continue...
+(bootloader) Unlocking bootloader...
+(bootloader) Unlocked!
+OKAY [ 54.483s]
+finished.
+</pre>
+<p>
+On the bootloader screen, it should now read Device is unlocked
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12"><span class="section-number-2">12</span> Run the commands in flash-all.sh manually</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+I just wanted to see that every commands runs successfully.
+</p>
+<pre class="example">
+bash-3.2$ fastboot devices
+84B5T15A13002362	fastboot
+bash-3.2$ ll bootloader-angler-angler-03.68.img
+-rw-r-----@ 1 gug  staff  3629056 Jul 17 13:36 bootloader-angler-angler-03.68.img
+bash-3.2$ fastboot flash bootloader bootloader-angler-angler-03.68.img
+target reported max download size of 494927872 bytes
+sending 'bootloader' (3544 KB)...
+OKAY [  0.127s]
+writing 'bootloader'...
+OKAY [  0.211s]
+finished. total time: 0.339s
+bash-3.2$ fastboot reboot-bootloader
+rebooting into bootloader...
+OKAY [  0.022s]
+finished. total time: 0.022s
+bash-3.2$ ll radio-angler-angler-03.81.img
+-rw-r-----@ 1 gug  staff  49897472 Jul 17 13:36 radio-angler-angler-03.81.img
+bash-3.2$ fastboot flash radio radio-angler-angler-03.81.img
+target reported max download size of 494927872 bytes
+sending 'radio' (48728 KB)...
+OKAY [  1.422s]
+writing 'radio'...
+OKAY [  2.819s]
+finished. total time: 4.241s
+bash-3.2$ fastboot reboot-bootloader
+rebooting into bootloader...
+OKAY [  0.022s]
+finished. total time: 0.022s
+bash-3.2$ ll image-angler-n2g48c.zip
+-rw-r-----@ 1 gug  staff  1331032546 Jul 17 13:36 image-angler-n2g48c.zip
+bash-3.2$ fastboot -w update image-angler-n2g48c.zip
+extracting android-info.txt (0 MB)...
+extracting boot.img (12 MB)...
+target reported max download size of 494927872 bytes
+archive does not contain 'boot.sig'
+archive does not contain 'dtbo.img'
+archive does not contain 'dt.img'
+extracting recovery.img (17 MB)...
+archive does not contain 'recovery.sig'
+extracting system.img (2727 MB)...
+archive does not contain 'system.sig'
+archive does not contain 'vbmeta.img'
+extracting vendor.img (190 MB)...
+archive does not contain 'vendor.sig'
+wiping userdata...
+Couldn't parse erase-block-size '0x'.
+Couldn't parse logical-block-size '0x'.
+Creating filesystem with parameters:
+    Size: 27419729920
+    Block size: 4096
+    Blocks per group: 32768
+    Inodes per group: 8176
+    Inode size: 256
+    Journal blocks: 32768
+    Label: 
+    Blocks: 6694270
+    Block groups: 205
+    Reserved block group size: 1024
+Created filesystem with 11/1676080 inodes and 149233/6694270 blocks
+wiping cache...
+Couldn't parse erase-block-size '0x'.
+Couldn't parse logical-block-size '0x'.
+Creating filesystem with parameters:
+    Size: 104857600
+    Block size: 4096
+    Blocks per group: 32768
+    Inodes per group: 6400
+    Inode size: 256
+    Journal blocks: 1024
+    Label: 
+    Blocks: 25600
+    Block groups: 1
+    Reserved block group size: 7
+Created filesystem with 11/6400 inodes and 1438/25600 blocks
+--------------------------------------------
+Bootloader Version...: angler-03.68
+Baseband Version.....: angler-03.81
+Serial Number........: 84B5T15A13002362
+--------------------------------------------
+checking product...
+OKAY [  0.020s]
+checking version-bootloader...
+OKAY [  0.021s]
+checking version-baseband...
+OKAY [  0.020s]
+sending 'boot' (12385 KB)...
+OKAY [  0.299s]
+writing 'boot'...
+OKAY [  0.192s]
+sending 'recovery' (17725 KB)...
+OKAY [  0.399s]
+writing 'recovery'...
+OKAY [  0.258s]
+erasing 'system'...
+OKAY [  0.409s]
+sending sparse 'system' 1/6 (482611 KB)...
+OKAY [ 11.573s]
+writing 'system' 1/6...
+OKAY [  6.968s]
+sending sparse 'system' 2/6 (470347 KB)...
+OKAY [ 11.063s]
+writing 'system' 2/6...
+OKAY [  6.735s]
+sending sparse 'system' 3/6 (459404 KB)...
+OKAY [ 12.586s]
+writing 'system' 3/6...
+OKAY [  6.486s]
+sending sparse 'system' 4/6 (482319 KB)...
+OKAY [ 11.409s]
+writing 'system' 4/6...
+OKAY [  6.915s]
+sending sparse 'system' 5/6 (483326 KB)...
+OKAY [ 12.388s]
+writing 'system' 5/6...
+OKAY [  7.110s]
+sending sparse 'system' 6/6 (415165 KB)...
+OKAY [ 10.455s]
+writing 'system' 6/6...
+OKAY [  7.608s]
+sending 'vendor' (194736 KB)...
+OKAY [  4.261s]
+writing 'vendor'...
+OKAY [  3.700s]
+erasing 'userdata'...
+OKAY [  4.390s]
+sending 'userdata' (139001 KB)...
+OKAY [  3.025s]
+writing 'userdata'...
+OKAY [  1.973s]
+erasing 'cache'...
+OKAY [  0.096s]
+sending 'cache' (5752 KB)...
+OKAY [  0.187s]
+writing 'cache'...
+OKAY [  0.112s]
+rebooting...
+
+finished. total time: 130.743s
+bash-3.2$ date
+Wed Nov 15 09:10:27 EST 2017
+bash-3.2$ exit
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13"><span class="section-number-2">13</span> Now we're on 7.1.2, lock the device again</h2>
+<div class="outline-text-2" id="text-13">
+<pre class="example">
+bash-3.2$ adb devices
+List of devices attached
+# unplug usb and re-plug it
+bash-3.2$ fastboot devices
+bash-3.2$ adb devices
+List of devices attached
+84B5T15A13002362	device
+
+bash-3.2$ fastboot devices
+bash-3.2$ adb reboot-bootloader
+bash-3.2$ fastboot devices
+84B5T15A13002362	fastboot
+bash-3.2$ fastboot flashing lock
+...
+(bootloader) Please select 'YES' on screen if you want to continue...
+(bootloader) Locking bootloader...
+(bootloader) Locked!
+OKAY [ 31.332s]
+finished. total time: 31.332s
+bash-3.2$
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Gary Gu</p>
+<p class="date">Created: 2017-11-15 Wed 12:54</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.2.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
